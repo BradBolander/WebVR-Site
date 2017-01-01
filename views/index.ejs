@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Web VR Site</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js"></script>
+		<script src="javascripts/WebVR.js"></script>
+		<script src="shaders/NewColors.js"></script>
+		<script src="shaders/AshimaNoise.js"></script>
+		<script src="javascripts/VRControls.js"></script>
+		<script src="javascripts/VREffect.js"></script>
+		
+
+		<div class="header">
+			<h1 class="title">
+				WebVR - Three.js
+			</h1>
+		</div>
+
+		<div id="webvr-container">
+			<div style="display:none;" class="browser-warning">
+				<h4>Your Browser does not allow WebVR</h4>
+			</div>
+		</div>
+
+		<script src="javascripts/app.js"></script>
+	</body>
+</html>
