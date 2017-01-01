@@ -2,7 +2,7 @@
 if ( WEBVR.isLatestAvailable() === false ) {
 
     document.body.appendChild( WEBVR.getMessage() );
-    $('.browser-warning').show();
+    // $('.browser-warning').show();
 }
 
 var camera, scene, renderer;
