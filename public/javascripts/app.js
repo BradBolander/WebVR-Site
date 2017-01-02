@@ -6,7 +6,7 @@ if ( WEBVR.isLatestAvailable() === false ) {
 }
 
 var camera, scene, renderer;
-var effect, controls, shaderMaterial;
+var effect, controls, NewColorsMaterial, PlantMaterial;
 var start = Date.now();
 
 init();
@@ -21,7 +21,7 @@ function init() {
     dummy.lookAt( scene.position );
     scene.add( dummy );
 
-    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
+    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 150 );
     dummy.add( camera );
 
     var geometry = new THREE.TorusKnotGeometry( 0.6, 0.15, 31, 20, 9, 20 );
@@ -44,7 +44,7 @@ function init() {
     var AshimaNoiseVertexShader = AshimaNoise.vertexShader;
     var NewColorsVertexShader = NewColorsShader.vertexShader;
     var NewColorsFragmentShader = NewColorsShader.fragmentShader;
-    shaderMaterial = new THREE.ShaderMaterial( {
+    NewColorsMaterial = new THREE.ShaderMaterial( {
             wireframe: true,
             uniforms: { 
                 time: { 
@@ -60,7 +60,7 @@ function init() {
     for (i = 0; i < sphereCount; i++){
         var geometry = new THREE.IcosahedronGeometry( .2, 5);
         
-        var mesh = new THREE.Mesh( geometry, shaderMaterial );  
+        var mesh = new THREE.Mesh( geometry, NewColorsMaterial );  
         mesh.position.x = 5 * Math.cos(2 * Math.PI * i / sphereCount);
         mesh.position.z = 5 * Math.sin(2 * Math.PI * i / sphereCount);
         mesh.rotation.x += Math.floor((Math.random() * 5) + .1);
@@ -69,6 +69,29 @@ function init() {
         mesh.receiveShadow = true;
         scene.add( mesh );
     };
+
+    var PlantShader = THREE.Plant;
+    var PlantVertexShader = PlantShader.vertexShader;
+    var PlantFragmentShader = PlantShader.fragmentShader;
+    PlantMaterial = new THREE.ShaderMaterial( {
+        wireframe: true,
+        uniforms: { 
+            time: { 
+                type: "f", 
+                value: 0.0 
+            }		
+        },
+        vertexShader: PlantVertexShader,
+        fragmentShader: PlantFragmentShader      
+    } );
+    var geometry = new THREE.SphereGeometry( 32, 400, 100);
+    var mesh = new THREE.Mesh( geometry, PlantMaterial );
+    mesh.position.y = 0.5;
+    mesh.position.x = 100;
+    mesh.rotateY(190);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    scene.add( mesh );
 
     //Points block
     var data = new Float32Array(3993000);
@@ -155,7 +178,8 @@ function render() {
     mesh.rotation.y = time * 5;
 
     controls.update();
-    shaderMaterial.uniforms[ 'time' ].value = .0001 * ( Date.now() - start );
+    NewColorsMaterial.uniforms[ 'time' ].value = .0001 * ( Date.now() - start );
+    PlantMaterial.uniforms[ 'time' ].value = .00001 * ( Date.now() - start );
     effect.render( scene, camera );
 
 }
