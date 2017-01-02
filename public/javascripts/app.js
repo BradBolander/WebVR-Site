@@ -24,8 +24,8 @@ function init() {
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
     dummy.add( camera );
 
-    var geometry = new THREE.TorusKnotGeometry( 0.4, 0.15, 150, 20 );;
-    var material = new THREE.MeshStandardMaterial( { roughness: 0.01, metalness: 0.2 } );
+    var geometry = new THREE.TorusKnotGeometry( 0.6, 0.15, 31, 20, 9, 20 );
+    var material = new THREE.MeshStandardMaterial( {  wireframe: true } );
     var mesh = new THREE.Mesh( geometry, material );
     mesh.position.y = 0.5;
     mesh.castShadow = true;
@@ -95,14 +95,14 @@ function init() {
     scene.add( particles );
 
 
-    var light = new THREE.DirectionalLight( 0xE692FA );
-    light.position.set( - 1, 1.5, 0.5 );
+    var light = new THREE.DirectionalLight( 0x86FFA5, 2 );
+    light.position.set( - 1, .5, 0.5 );
     light.castShadow = true;
     light.shadow.camera.zoom = 4;
     scene.add( light );
 
-    var light = new THREE.DirectionalLight( 0x272B92 );
-    light.position.set( 1, 1.5, - 0.5 );
+    var light = new THREE.DirectionalLight( 0x86E4FF, 2 );
+    light.position.set( 1, .5, - 0.5 );
     light.castShadow = true;
     light.shadow.camera.zoom = 4;
     scene.add( light );
@@ -152,7 +152,6 @@ function animate() {
 function render() {
     var time = performance.now() * 0.0002;
     var mesh = scene.children[ 1 ];
-    mesh.rotation.x = time * 2;
     mesh.rotation.y = time * 5;
 
     controls.update();
